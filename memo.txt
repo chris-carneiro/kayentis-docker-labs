@@ -1,0 +1,49 @@
+https://mensuel.framapad.org/p/kayentis-9puv
+
+
+Mypoet3?
+
+	*1WEq#mxG959V*k5HB
+docker exec -it <container id> /bin/bash
+
+ 
+docker volume create mysql-data
+docker run --rm -d --name lab1-db --network net1 -v "mysql-data:/var/lib/mysql" -e 'MYSQL_ROOT_PASSWORD=Mypoet3?' mysql:5.7 
+
+
+docker build -t my-rust-app .
+
+docker run -it --rm --name my-running-app my-rust-app
+
+docker volume create data-mysql
+
+docker run --rm -d --name lab2-wp --network net2 -v "mysql-data:/var/lib/mysql" -e 'MYSQL_ROOT_PASSWORD=Mypoet3?' wordpress 
+
+docker run --rm -d --name lab2-db --network net2 -v "data-mysql:/var/lib/mysql" -e 'MYSQL_ROOT_PASSWORD=Mypoet3?' mysql:5.7 
+
+docker run -d --rm --name lab2-wordpress -d --network net2 -p 8091:80 -e WORDPRESS_DB_HOST="lab2-db" -e WORDPRESS_DB_USER="root" -e WORDPRESS_DB_PASSWORD="Mypoet3?" -e WORDPRESS_DB_NAME="wordpress-db2" -e WORDPRESS_TABLE_PREFIX="wp2_" wordpress 
+
+
+https://docs.docker.com/compose/profiles/
+
+
+https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/
+
+
+
+// new registry
+
+docker run -d -p 5000:5000 --name registry registry:2
+
+docker run -d -p 5000:5000 --name registry -v /mnt/registry:/var/lib/registry registry:2
+
+docker login localhost:5000  -u "stored" -p "admin"  
+
+docker build -t  localhost:5000/stored/my-persisted-app .
+
+docker push localhost:5000/stored/my-persisted-app
+
+curl -X GET http://localhost:5000/v2/_catalog
+
+docker exec -it <container-id> sh
+
